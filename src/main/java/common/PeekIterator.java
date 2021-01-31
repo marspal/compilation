@@ -15,6 +15,7 @@ public class PeekIterator<T> implements Iterator<T> {
         it = stream.iterator();
     }
 
+    // 末尾加一个字符
     public PeekIterator(Stream<T> stream, T endToken) {
         it = stream.iterator();
         _endToken = endToken;
