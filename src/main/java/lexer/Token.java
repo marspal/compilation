@@ -1,6 +1,7 @@
-package main.lexer;
+package lexer;
 
 public class Token {
+
     TokenType _type;
     String _value;
 
@@ -13,11 +14,6 @@ public class Token {
         return _type;
     }
 
-    @Override
-    public String toString(){
-        return String.format("type %s, value %s", _type, _value);
-    }
-
     public boolean isVariable(){
         return _type == TokenType.VARIABLE;
     }
@@ -26,5 +22,9 @@ public class Token {
     public boolean isScalar(){
         return _type == TokenType.INTEGER || _type == TokenType.FLOAT
                 || _type == TokenType.STRING || _type == TokenType.BOOLEAN;
+    }
+    @Override
+    public String toString(){
+        return String.format("type %s, value %s", _type, _value);
     }
 }
