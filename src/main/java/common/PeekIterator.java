@@ -28,7 +28,7 @@ public class PeekIterator<T> implements Iterator<T> {
         if (!it.hasNext()) {
             return _endToken;
         }
-        T val = next();
+        T val = this.next();
         this.putBack();
         return val;
     }
@@ -49,7 +49,7 @@ public class PeekIterator<T> implements Iterator<T> {
     @Override
     public T next() {
         T val = null;
-        if(this.stackPutBacks.size() > 0){
+        if (this.stackPutBacks.size() > 0) {
             val = this.stackPutBacks.pop();
         } else {
             if(!this.it.hasNext()){
@@ -57,7 +57,7 @@ public class PeekIterator<T> implements Iterator<T> {
                 _endToken = null;
                 return tmp;
             }
-            val = next();
+            val = it.next();
         }
         while (queueCache.size() > CACHE_SIZE - 1) {
             // 出队操作
