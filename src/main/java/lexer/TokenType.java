@@ -8,5 +8,5 @@ public enum TokenType {
     STRING,
     FLOAT,
     INTEGER,
-    BOOLEAN,
+    BOOLEAN
 }

@@ -44,7 +44,7 @@ public class PeekIterator<T> implements Iterator<T> {
     @Override
     public boolean hasNext() {
         return _endToken != null || this.stackPutBacks.size() > 0 || it.hasNext();
-    }
+}
 
     @Override
     public T next() {

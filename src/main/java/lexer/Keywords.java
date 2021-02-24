@@ -2,7 +2,7 @@ package lexer;
 
 import java.util.*;
 
-public class KeyWords {
+public class Keywords {
     static String[] keywords = {
         "var",
         "if",

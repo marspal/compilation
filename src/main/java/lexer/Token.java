@@ -31,6 +31,7 @@ public class Token {
         return String.format("type %s, value %s", _type, _value);
     }
 
+    // 提取变量Or关键字
     public static Token extractVarOrKeyword(PeekIterator<Character> it){
         String s = "";
         while(it.hasNext()){
@@ -42,7 +43,7 @@ public class Token {
             }
             it.next();
         }
-        if(KeyWords.isKeyword(s)){
+        if(Keywords.isKeyword(s)){
             return new Token(TokenType.KEYWORD, s);
         }
         if(s.equals("true") || s.equals("false")){
