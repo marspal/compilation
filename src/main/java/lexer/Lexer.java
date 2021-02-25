@@ -41,9 +41,23 @@ public class Lexer {
                 continue;
             }
             // + - 3 + 5, + 3 3 * -5;
-            if((c == '+' || c == '-') && AlphabetHelper.isNumber(lookahead)){
-
+            if((c == '+' || c == '-' || c == '.') && AlphabetHelper.isNumber(lookahead)){
+                var lastToken = tokens.size() == 0 ? null : tokens.get(tokens.size() - 1);
+                // lastToken.isNumber() 估计有问题
+                if(lastToken == null || lastToken.isNumber() || lastToken.isOperator()){
+                    it.putBack();
+                    tokens.add(Token.extractNumber(it));
+                    continue;
+                }
             }
+
+            if(AlphabetHelper.isOperator(c)){
+                it.putBack();
+                tokens.add(Token.extractOperator(it));
+                continue;
+            }
+
+            throw new LexicalException(c);
         }
         return null;
     }

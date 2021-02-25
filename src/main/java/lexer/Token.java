@@ -300,4 +300,12 @@ public class Token {
         }
         throw new LexicalException("unexpected error");
     }
+
+    public boolean isNumber() {
+        return this._type == TokenType.INTEGER || this._type == TokenType.FLOAT;
+    }
+
+    public boolean isOperator() {
+        return this._type == TokenType.OPERATOR;
+    }
 }
