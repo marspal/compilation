@@ -21,6 +21,29 @@ public class Lexer {
             if(c == ' ' || c == '\n'){
                 continue;
             }
+
+            // 删除注释
+            if(c == '/'){
+                if(lookahead == '/'){
+                    while (it.hasNext() && (c = it.next()) != '\n');
+                } else if(lookahead == '*'){
+                    boolean valid = false;
+                    while (it.hasNext()) {
+                        char p = it.next();
+                        if(p == '*' && it.peek() == '/'){
+                            it.next();
+                            valid = true;
+                            break;
+                        }
+                    }
+                    if(!valid){
+                        throw new LexicalException("comments not match");
+                    }
+                    continue;
+                }
+
+            }
+
             if(c == '{' || c=='}' || c == '(' || c== ')'){
                 tokens.add(new Token(TokenType.BRACKET, c + ""));
                 continue;
@@ -44,7 +67,7 @@ public class Lexer {
             if((c == '+' || c == '-' || c == '.') && AlphabetHelper.isNumber(lookahead)){
                 var lastToken = tokens.size() == 0 ? null : tokens.get(tokens.size() - 1);
                 // lastToken.isNumber() 估计有问题
-                if(lastToken == null || lastToken.isNumber() || lastToken.isOperator()){
+                if(lastToken == null || !lastToken.isNumber() || lastToken.isOperator()){
                     it.putBack();
                     tokens.add(Token.extractNumber(it));
                     continue;
@@ -59,6 +82,6 @@ public class Lexer {
 
             throw new LexicalException(c);
         }
-        return null;
+        return tokens;
     }
 }
