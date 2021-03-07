@@ -25,7 +25,7 @@ public class PeekTokenIterator extends PeekIterator<Token> {
 
     public Token nextMatch(TokenType type) throws ParseException {
         var token = this.next();
-        if(token.getType() != type){
+        if(token.getType().equals(type)){
             throw new ParseException(token);
         }
         return token;

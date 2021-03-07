@@ -3,14 +3,14 @@ package parser.ast;
 import parser.util.ParseException;
 import parser.util.PeekTokenIterator;
 
-public class DeclareStmt extends Stmt {
-    public DeclareStmt(ASTNode _parent) {
-        super(_parent, ASTNodeTypes.DECLARE_STMT, "declare");
+public class AssignStmt extends  Stmt {
+
+    public AssignStmt(ASTNode _parent) {
+        super(_parent, ASTNodeTypes.DECLARE_STMT, "assign");
     }
 
 //    public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {
-//        var stmt = new DeclareStmt(parent);
-//        it.nextMatch("var");
+//        var stmt = new AssignStmt(parent);
 //        var tkn = it.peek();
 //        var factor = Factor.parse(parent, it);
 //        if(factor == null){

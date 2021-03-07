@@ -1,6 +1,7 @@
 package parser.ast;
 
 import lexer.Token;
+import parser.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,12 @@ import java.util.List;
 // 语法分析器: 根据语法规则,将符号(词法单元lexeme、token)流转化成抽象语法树
 
 /**
+ * 抽象语法树:
+ *
+ * 1. 每一个节点是源代码中的一种结构
+ * 2. 每一个节点携带源码中的一些关键信息
+ * 3. 每个节点的字节点代表着语言上的关系
+ *
  * 语法规则: 通常用产生式描述语法规则
  *
  * 产生式: Expr -> Expr + 1 | 1 读成Expr可以推导出Expr+1或1
@@ -53,7 +60,7 @@ public abstract class ASTNode {
     // 关键信息
     protected Token lexeme; // 词法单元
     protected String label; // 备注标签
-    protected ASTNodeTypes type; // 类型
+    protected ASTNodeTypes type; // 当前ASTNode类型
 
     public ASTNode(ASTNode _parent){
         this.parent = _parent;
@@ -70,27 +77,35 @@ public abstract class ASTNode {
     }
 
     public void addChild(ASTNode child){
+        child.parent = this;
         children.add(child);
     }
 
     public Token getLexeme(){
         return lexeme;
     }
-
+    public void setLexeme(Token lexeme){this.lexeme = lexeme;}
     public List<ASTNode> getChildren(){
         return children;
-    }
-
-    public void setLexeme(Token peek){
-        this.lexeme = peek;
     }
 
     public void setType(ASTNodeTypes type){
         this.type = type;
     }
 
+    public ASTNodeTypes getType(){
+        return this.type;
+    }
+
     public void setLabel(String s) {
         this.label = s;
+    }
+
+    public void print(int indent){
+        System.out.println(StringUtils.LeftPad(" ", indent * 2) + label);
+        for(var child: children){
+            child.print(indent + 1);
+        }
     }
 
 }
