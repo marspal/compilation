@@ -12,7 +12,7 @@ public class PriorityTable {
         table.add(Arrays.asList(new String[]{"==", "!=", ">", "<", ">=", "<="}));
         table.add(Arrays.asList(new String[]{"+", "-"}));
         table.add(Arrays.asList(new String[]{"*", "/"}));
-        table.add(Arrays.asList(new String[]{"<<", ">>"}));
+        table.add (Arrays.asList(new String[]{"<<", ">>"}));
     }
 
     public int getSize(){
