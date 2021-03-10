@@ -19,22 +19,17 @@ public abstract class Factor extends ASTNode {
         }
         this.lexeme = token;
         this.label = token.getValue();
-
-//        this.lexeme = token;
-//        this.label = token.getValue();
     }
 
-//    public static ASTNode parse(ASTNode parent, PeekTokenIterator it){
-//        var token = it.peek();
-//        var type = token.getType();
-//        if(type == TokenType.VARIABLE){
-//            it.next();
-//            return new Variable(parent, token);
-//        } else if(token.isScalar()) {
-//            it.next();
-//            return new Scalar(parent, token);
-//        }
-//        return null;
-//    }
+    public static ASTNode parse(ASTNode parent, PeekTokenIterator it){
+        var token = it.peek();
+        var type = token.getType();
+        if(type == TokenType.VARIABLE){
+            return new Variable(parent, it);
+        } else if(token.isScalar()) {
+            return new Scalar(parent, it);
+        }
+        return null;
+    }
 
 }

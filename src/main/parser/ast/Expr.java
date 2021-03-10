@@ -34,6 +34,7 @@ public class Expr extends ASTNode{
 
 
     private static ASTNode E(ASTNode parent, int k, PeekTokenIterator it) throws ParseException {
+        // k < 4
         if(k < table.getSize() - 1){
             return combine(parent, it, () -> E(parent,k+1, it), () -> E_(parent, k, it));
         } else {
@@ -56,6 +57,7 @@ public class Expr extends ASTNode{
                     () -> E(parent, k + 1, it),
                     () -> E_(parent, k, it)
             ));
+            return expr;
         }
         return null;
     }
@@ -72,7 +74,7 @@ public class Expr extends ASTNode{
 
         Expr expr = new Expr(parent, ASTNodeTypes.BINARY_EXPR, b.lexeme);
 
-        expr.addChild(a );
+        expr.addChild(a);
         expr.addChild(b.getChild(0));
         return expr;
     }
@@ -113,11 +115,11 @@ public class Expr extends ASTNode{
             return new Scalar(parent, it);
         }
     }
-//    public static ASTNode parse(PeekTokenIterator it) throws ParseException {
-//        return E(null, 0, it);
-//    }
-//
-//    public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {
-//        return E(parent, 0, it);
-//    }
+    public static ASTNode parse(PeekTokenIterator it) throws ParseException {
+        return E(null, 0, it);
+    }
+
+    public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {
+        return E(parent, 0, it);
+    }
 }

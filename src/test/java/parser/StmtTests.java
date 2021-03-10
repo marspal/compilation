@@ -11,13 +11,13 @@ import parser.util.PeekTokenIterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StmtTests {
-//    @Test
-//    public void declare() throws LexicalException, ParseException, NotImplementedException {
-//        var it = createTokenIt("var i = 100 * 2");
-//        var stmt = DeclareStmt.parse(null, it);
-//        assertEquals(ParserUtils.toPostfixExpression(stmt), "i 100 2 * =");
-//        stmt.print(0);
-//    }
+    @Test
+    public void declare() throws LexicalException, ParseException, NotImplementedException {
+        var it = createTokenIt("var i = 100 * 2");
+        var stmt = DeclareStmt.parse(null, it);
+        assertEquals("i 100 2 * =", ParserUtils.toPostfixExpression(stmt));
+        stmt.print(0);
+    }
 
 //    @Test
 //    public void assign() throws LexicalException, ParseException, NotImplementedException {
@@ -95,10 +95,10 @@ public class StmtTests {
 //        var functionStmt = (FunctionDeclareStmt)Stmt.parseStmt(null, new PeekTokenIterator(tokens));
 //        assertEquals("func fact args block", ParserUtils.toBFSString(functionStmt, 4));
 //    }
-//    private PeekTokenIterator createTokenIt(String src) throws LexicalException {
-//        var lexer = new Lexer();
-//        var tokens = lexer.analyse(src.chars().mapToObj(x -> (char)x));
-//        var tokenIt = new PeekTokenIterator(tokens.stream());
-//        return tokenIt;
-//    }
+    private PeekTokenIterator createTokenIt(String src) throws LexicalException {
+        var lexer = new Lexer();
+        var tokens = lexer.analyse(src.chars().mapToObj(x -> (char)x));
+        var tokenIt = new PeekTokenIterator(tokens.stream());
+        return tokenIt;
+    }
 }
