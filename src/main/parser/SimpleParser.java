@@ -1,9 +1,6 @@
 package parser;
 
-import parser.ast.ASTNode;
-import parser.ast.ASTNodeTypes;
-import parser.ast.Expr;
-import parser.ast.Scalar;
+import parser.ast.*;
 import parser.util.ParseException;
 import parser.util.PeekTokenIterator;
 
@@ -27,7 +24,7 @@ public class SimpleParser {
     // digit -> 0|1|2|3|4|5|...|9
     public static ASTNode parse(PeekTokenIterator it) throws ParseException {
         var expr = new Expr(null);
-        var scalar = new Scalar(expr, it);
+        var scalar = Factor.parse(null, it);
         if(!it.hasNext()){
             return scalar;
         }

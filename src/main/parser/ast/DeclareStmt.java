@@ -23,20 +23,4 @@ public class DeclareStmt extends Stmt {
         stmt.setLexeme(lexeme)  ;
         return stmt;
     }
-
-//    public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {
-//        var stmt = new DeclareStmt(parent);
-//        it.nextMatch("var");
-//        var tkn = it.peek();
-//        var factor = Factor.parse(parent, it);
-//        if(factor == null){
-//            throw new ParseException(tkn);
-//        }
-//        stmt.addChild(factor);
-//        var lexeme = it.nextMatch("=");
-//        var expr = Expr.parse(parent, it);
-//        stmt.addChild(expr);
-//        stmt.setLexeme(lexeme);
-//        return stmt;
-//    }
 }

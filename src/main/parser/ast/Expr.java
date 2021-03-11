@@ -110,9 +110,11 @@ public class Expr extends ASTNode{
     private static ASTNode F(ASTNode parent, PeekTokenIterator it) {
         var token = it.peek();
         if(token.isVariable()){
-            return new Variable(parent, it);
+            it.next();
+            return new Variable(parent, token);
         } else {
-            return new Scalar(parent, it);
+            it.next();
+            return new Scalar(parent, token);
         }
     }
     public static ASTNode parse(PeekTokenIterator it) throws ParseException {

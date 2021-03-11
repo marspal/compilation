@@ -15,18 +15,18 @@ public class StmtTests {
     public void declare() throws LexicalException, ParseException, NotImplementedException {
         var it = createTokenIt("var i = 100 * 2");
         var stmt = DeclareStmt.parse(null, it);
-        assertEquals("i 100 2 * =", ParserUtils.toPostfixExpression(stmt));
         stmt.print(0);
+        assertEquals("i 100 2 * =", ParserUtils.toPostfixExpression(stmt));
     }
 
-//    @Test
-//    public void assign() throws LexicalException, ParseException, NotImplementedException {
-//        var it = createTokenIt("i = 100 * 2");
-//        var stmt = AssignStmt.parse(null, it);
-//        assertEquals(ParserUtils.toPostfixExpression(stmt), "i 100 2 * =");
-//        stmt.print(0);
-//    }
-//
+    @Test
+    public void assign() throws LexicalException, ParseException, NotImplementedException {
+        var it = createTokenIt("i = 100 * 2");
+        var stmt = AssignStmt.parse(null, it);
+        stmt.print(0);
+        assertEquals(ParserUtils.toPostfixExpression(stmt), "i 100 2 * =");
+    }
+
 //    @Test
 //    public void ifStmt() throws LexicalException, ParseException {
 //        var it = createTokenIt("if(a){\""+

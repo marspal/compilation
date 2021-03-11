@@ -8,26 +8,26 @@ import parser.util.PeekTokenIterator;
  * 因子: 操作符两边可以计算的东西
  */
 public abstract class Factor extends ASTNode {
-    public Factor(ASTNode _parent, PeekTokenIterator it){
+    public Factor(ASTNode _parent){
         super(_parent);
-        var token = it.next();
-        var type = token.getType();
-        if(type == TokenType.VARIABLE){
-            this.type = ASTNodeTypes.VARIABLE;
-        } else if(token.isScalar()){
-            this.type = ASTNodeTypes.SCALAR;
-        }
+    }
+
+    public Factor(ASTNode _parent, Token token, ASTNodeTypes type){
+        super(_parent);
         this.lexeme = token;
         this.label = token.getValue();
+        this.setType(type);
     }
 
     public static ASTNode parse(ASTNode parent, PeekTokenIterator it){
         var token = it.peek();
         var type = token.getType();
         if(type == TokenType.VARIABLE){
-            return new Variable(parent, it);
+            it.next();
+            return new Variable(parent, token);
         } else if(token.isScalar()) {
-            return new Scalar(parent, it);
+            it.next();
+            return new Scalar(parent, token);
         }
         return null;
     }
