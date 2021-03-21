@@ -1,15 +1,16 @@
 package lexer;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.stream.Stream;
 import common.*;
 
 // 词法分析器
 public class Lexer {
-    public ArrayList<Token> analyse(Stream source) throws LexicalException {
-        var tokens = new ArrayList<Token>();
-        var it = new PeekIterator<Character>(source, (char)0);
 
+    public ArrayList<Token> analyse(PeekIterator<Character> it) throws LexicalException {
+        var tokens = new ArrayList<Token>();
         while (it.hasNext()) {
             char c = it.next();
 
@@ -83,5 +84,67 @@ public class Lexer {
             throw new LexicalException(c);
         }
         return tokens;
+    }
+
+    public ArrayList<Token> analyse(Stream source) throws LexicalException {
+        var it = new PeekIterator<Character>(source, (char)0);
+        return this.analyse(it);
+    }
+
+    /**
+     * 从源代码文件加载并解析
+     * @param src
+     * @return
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     * @throws LexicalException
+     */
+    public static ArrayList<Token> fromFile(String src) throws FileNotFoundException, UnsupportedEncodingException, LexicalException {
+        var file = new File(src);
+        var fileStream = new FileInputStream(file);
+        var inputStreamReader = new InputStreamReader(fileStream, "UTF-8");
+
+        var br = new BufferedReader(inputStreamReader);
+
+
+        /**
+         * 利用BufferedReader每次读取一行
+         */
+        var it = new Iterator<Character>() {
+            private String line = null;
+            private int cursor = 0;
+
+            private void readLine() throws IOException {
+                if(line == null || cursor == line.length()) {
+                    line = br.readLine();
+                    cursor = 0;
+                }
+            }
+            @Override
+            public boolean hasNext() {
+                try {
+                    readLine();
+                    return line != null;
+                } catch (IOException e) {
+                    return false;
+                }
+            }
+
+            @Override
+            public Character next() {
+                try {
+                    readLine();
+                    return line != null ? line.charAt(cursor++) :null;
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+        };
+
+        var peekIt = new PeekIterator<Character>(it, '\0');
+
+        var lexer = new Lexer();
+        return lexer.analyse(peekIt);
+
     }
 }
